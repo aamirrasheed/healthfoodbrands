@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import LogoutButton from "./logoutButton"
+import LogoutButton from "./LogoutButton"
 export default function NavBar({loggedInSession}) {
     return (
      <nav className="flex justify-between items-center p-4 shadow-md shadow-gray-500/50">
