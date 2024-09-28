@@ -4,9 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
 
-export default function Form() {
-    
-
+export default function Form() { 
     const handleSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
@@ -17,7 +15,15 @@ export default function Form() {
                 password: formData.get("password")
             })
         })
-        console.log({response})
+
+        if (response.ok) {
+            const router = useRouter();
+            router.push('/');
+        } else {
+            // Handle error case
+            console.error('Registration failed');
+            // You might want to add some state to show an error message to the user
+        }
     }
 
     return (<div className="flex flex-col items-center justify-center h-screen">

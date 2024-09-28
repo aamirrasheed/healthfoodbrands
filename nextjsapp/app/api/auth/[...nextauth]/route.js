@@ -2,7 +2,8 @@ import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import {compare} from "bcrypt"
 import {sql} from "@vercel/postgres"
-const handler = NextAuth({
+
+export const authOptions = {
     session:  {
         strategy: "jwt"
     },
@@ -38,7 +39,8 @@ const handler = NextAuth({
             }
         }),
     ], 
-})
+}
+const handler = NextAuth(authOptions)
     
 
 export { handler as GET, handler as POST }
