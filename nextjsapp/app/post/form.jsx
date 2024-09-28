@@ -1,6 +1,7 @@
 'use client'
 import { useState } from "react"
 
+import { redirect } from "next/navigation"
 import { useForm} from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
 import { upload } from '@vercel/blob/client';
@@ -44,7 +45,7 @@ export default function PostForm() {
             const formData = new FormData()
             formData.append('brandName', data.brandName)
             formData.append('brandUrl', data.brandUrl)
-            formData.append('brandTags', data.brandTags.split(','))
+            formData.append('brandTags', data.brandTags.toLowerCase().split(','))
             formData.append('brandDescription', data.brandDescription)
             formData.append('brandImageUrl', uploadedImageURL)
 
@@ -60,11 +61,12 @@ export default function PostForm() {
                     form.setError(key, { type: "server", message: value })
                 }
             } else {
-                // Handle successful submission
-                console.log("Form submitted successfully")
+                setSubmittingData(true)
+                redirect('/')
             }
         } catch (error) {
             console.error("Submission error", error)
+            setSubmittingData(false)
         }
     }
 

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { Spinner } from "@/components/ui/spinner"
 import BrandCard from "./BrandCard"
 
+
 export default function BrandGrid(){
     const [loading, setLoading] = useState(true)
     const [brandData, setBrandData] = useState([])
@@ -14,6 +15,7 @@ export default function BrandGrid(){
                 throw new Error('Failed to fetch brand data');
             }
             const fields = await response.json();
+            console.log(fields)
             setBrandData(fields);
             setLoading(false)
         }
