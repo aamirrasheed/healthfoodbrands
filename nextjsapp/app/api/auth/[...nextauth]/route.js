@@ -18,7 +18,6 @@ export const authOptions = {
                 password: {  },
             },
             async authorize(credentials, req) {
-                // potential future TODO: validate email and password
 
                 const response = await sql`
                     SELECT * FROM users WHERE email = ${credentials.email}

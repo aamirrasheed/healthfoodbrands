@@ -5,7 +5,6 @@ import { sql } from "@vercel/postgres"
 export async function POST(req) {
     try{
         const { email, password } = await req.json()
-        // TODO: validate email and password
         // Validate email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
