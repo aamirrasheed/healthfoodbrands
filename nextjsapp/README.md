@@ -754,3 +754,4 @@ As you can see, we match for all routes in `config` that we want to potentially 
 1. This project doesn't do a great job with form validation. For example, users can submit bogus data for brands, including tags that don't yet have colors mapped to them in `components/BrandCard.jsx`. 
 2. The tags/colors mapping in `components/BrandCard.jsx` should probably be saved to a database so we can add new user tags.
 3. No user feedback on invalid register/login forms right now.
+4. Make data flow diagrams for each feature to illustrate how they work!
