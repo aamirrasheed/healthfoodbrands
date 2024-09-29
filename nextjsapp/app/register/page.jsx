@@ -2,5 +2,9 @@ import RegisterForm from "@/components/RegisterForm"
 
 export default async function Register() {
 
-    return (<RegisterForm />)
+    return (
+        <div>
+            <RegisterForm />
+        </div>
+    )
 }

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server"
 import { serverFormSchema } from "@/lib/formValidationSchema"
 import { getToken } from "next-auth/jwt"
 
-// this removes caching, often returns stale data for the GET request
+// setting this removes caching, otherwise returns stale data for the GET request
 export const revalidate = 0;
 
 // Get all brands data, public

@@ -1,29 +1,49 @@
 'use client'
 
+import Link from 'next/link'
+import { useRouter } from "next/navigation"
+import { signIn } from "next-auth/react"
+
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import Link from 'next/link'
 
-export default function Form() { 
+export default function RegisterForm() { 
+    const router = useRouter();
+
     const handleSubmit = async (e) => {
         e.preventDefault()
+
         const formData = new FormData(e.target)
-        const response = await fetch("/api/auth/register", {
+        const email = formData.get("email")
+        const password = formData.get("password")
+        const registerResponse = await fetch("/api/auth/register", {
             method: 'POST',
             body: JSON.stringify({
-                email: formData.get("email"),
-                password: formData.get("password")
+                email,
+                password
             })
         })
 
-        if (response.ok) {
-            const router = useRouter();
-            router.push('/');
-        } else {
-            // Handle error case
+        if (!registerResponse.ok) {
             console.error('Registration failed');
-            // You might want to add some state to show an error message to the user
+            return
+            // TODO You might want to add some state to show an error message to the user
         }
+        const signInResponse = await signIn("credentials", {
+            email,
+            password,
+            redirect: false
+        })
+        
+        if(signInResponse.error){
+            console.error('Sign in failed');
+            return
+            // TODO You might want to add some state to show an error message to the user
+        }
+        
+        // redirect to home page
+        router.push("/")
+        router.refresh()
     }
 
     return (<div className="flex flex-col items-center justify-center h-screen">
