@@ -1,7 +1,7 @@
 'use client'
 import { useState } from "react"
 
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { useForm} from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
 import { upload } from '@vercel/blob/client';
@@ -22,7 +22,10 @@ import { Spinner } from "@/components/ui/spinner";
 
 
 export default function PostForm() {
+    const router = useRouter()
+
     const [submittingData, setSubmittingData] = useState(false)
+
     const form = useForm({
         resolver: yupResolver(clientFormSchema),
         defaultValues: {
@@ -39,7 +42,6 @@ export default function PostForm() {
         try {
             setSubmittingData(true)
             const uploadedImageURL = await uploadBrandImage(data.brandImage)
-            console.log("brand image url is ", uploadedImageURL)
             setSubmittingData(false)
 
             const formData = new FormData()
@@ -49,7 +51,7 @@ export default function PostForm() {
             formData.append('brandDescription', data.brandDescription)
             formData.append('brandImageUrl', uploadedImageURL)
 
-            const response = await fetch('/api/submitBrand', {
+            const response = await fetch('/api/brands/data', {
                 method: 'POST',
                 body: formData,
             })
@@ -57,26 +59,28 @@ export default function PostForm() {
             if (!response.ok) {
                 const result = await response.json()
                 // Handle server-side validation errors
-                for (const [key, value] of Object.entries(result.errors)) {
-                    form.setError(key, { type: "server", message: value })
+                if(result.errors){
+                    for (const [key, value] of Object.entries(result.errors)) {
+                        form.setError(key, { type: "server", message: value })
+                    }
                 }
             } else {
-                setSubmittingData(true)
-                redirect('/')
+                router.push('/')
             }
         } catch (error) {
-            console.error("Submission error", error)
+            setSubmittingData(false)
+        } finally {
             setSubmittingData(false)
         }
+    
     }
 
     const uploadBrandImage = async (file) => {
           const newBlob = await upload('brandImages/'+file.name, file, {
             access: 'public',
-            handleUploadUrl: '/api/brandImageUpload',
+            handleUploadUrl: '/api/brands/image',
           });
 
-          console.log("new brand image URL: ")
           return newBlob.url
 
     }

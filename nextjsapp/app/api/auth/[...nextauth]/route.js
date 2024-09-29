@@ -18,7 +18,7 @@ export const authOptions = {
                 password: {  },
             },
             async authorize(credentials, req) {
-                // TODO: validate email and password
+                // potential future TODO: validate email and password
 
                 const response = await sql`
                     SELECT * FROM users WHERE email = ${credentials.email}
@@ -27,7 +27,6 @@ export const authOptions = {
 
                 const passwordCorrect = await compare(credentials.password, user.password)
                 
-                console.log({passwordCorrect})
                 if (passwordCorrect) {
                     return {
                         id: user.id,

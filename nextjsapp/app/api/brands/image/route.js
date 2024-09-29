@@ -1,16 +1,10 @@
 import { handleUpload } from '@vercel/blob/client';
 import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from "../auth/[...nextauth]/route";
 
+// submit a new image
 export async function POST(request) {
   const body = await request.json();
-  // Check authentication
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
+  
   try {
     const jsonResponse = await handleUpload({
       body,
@@ -21,10 +15,7 @@ export async function POST(request) {
         };
       },
       onUploadCompleted: async ({ blob }) => {
-        console.log('blob upload completed', blob, tokenPayload);
-
-        console.log('blob upload completed', blob, tokenPayload);
- 
+        
         try {
           // Run any logic after the file upload completed
           // const { userId } = JSON.parse(tokenPayload);

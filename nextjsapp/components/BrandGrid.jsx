@@ -10,12 +10,11 @@ export default function BrandGrid(){
     const [brandData, setBrandData] = useState([])
     useEffect(() => {
         const getData = async () => {
-            const response = await fetch('/api/brandsData');
+            const response = await fetch('/api/brands/data');
             if (!response.ok) {
                 throw new Error('Failed to fetch brand data');
             }
             const fields = await response.json();
-            console.log(fields)
             setBrandData(fields);
             setLoading(false)
         }
