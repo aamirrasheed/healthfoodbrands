@@ -1,10 +1,6 @@
-import Form from "./form"
-import { getServerSession } from "next-auth"
-import {redirect } from 'next/navigation'
+import LoginForm from "@/components/LoginForm"
 
-export default async function Register() {
-    const session = await getServerSession()
-    if(session) redirect('/')
+export default async function Login() {
 
-    return (<Form />)
+    return (<LoginForm />)
 }

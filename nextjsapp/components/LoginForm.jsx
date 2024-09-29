@@ -6,7 +6,7 @@ import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 
-export default function Form() {
+export default function LoginForm() {
     const router = useRouter()
 
     const handleSubmit = async (e) => {
