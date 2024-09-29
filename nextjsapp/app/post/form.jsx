@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { upload } from '@vercel/blob/client';
 
 import { Input } from "@/components/ui/input"
-import { clientFormSchema } from '@/utils/formValidationSchema'
+import { clientFormSchema } from '@/lib/formValidationSchema'
 import { Button } from "@/components/ui/button"
 import  {
     Form,

@@ -1,6 +1,6 @@
 import { sql } from "@vercel/postgres"
 import { NextResponse } from "next/server"
-import { serverFormSchema } from "@/utils/formValidationSchema"
+import { serverFormSchema } from "@/lib/formValidationSchema"
 import { getToken } from "next-auth/jwt"
 
 // this removes caching, often returns stale data for the GET request
